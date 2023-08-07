@@ -20,22 +20,50 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 }
 
 resource "aws_ecs_service" "my_app_service" {
-  name                              = "my_app_service"     # Name the service
+  name                              = "my_app_web_service"     # Name the service
   cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
-  task_definition                   = "${aws_ecs_task_definition.my_app_task.arn}" # Reference the task that the service will spin up
+  task_definition                   = "${aws_ecs_task_definition.my_app_web.arn}" # Reference the task that the service will spin up
   launch_type                       = "FARGATE"
   desired_count                     = 3 # Set up the number of containers to 2
   health_check_grace_period_seconds = 300 # 5 minutes
 
   load_balancer {
     target_group_arn = "${aws_lb_target_group.target_group.arn}" # Reference the target group
-    container_name   = "${aws_ecs_task_definition.my_app_task.family}"
+    container_name   = "${aws_ecs_task_definition.my_app_web.family}"
     container_port   = 3000 # Specify the container port
   }
 
   network_configuration {
     subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
     assign_public_ip = true     # Provide the containers with public IPs
+    security_groups  = ["${aws_security_group.service_security_group.id}"] # Set up the security group
+  }
+}
+
+resource "aws_ecs_service" "my_app_db_create" {
+  name                              = "my_app_db_create"     # Name the service
+  cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
+  task_definition                   = "${aws_ecs_task_definition.my_app_db_create.arn}" # Reference the task that the service will spin up
+  launch_type                       = "FARGATE"
+  desired_count                     = 1 # Set up the number of containers to 2
+
+  network_configuration {
+    subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
+    assign_public_ip = false
+    security_groups  = ["${aws_security_group.service_security_group.id}"] # Set up the security group
+  }
+}
+
+resource "aws_ecs_service" "my_app_db_migrate" {
+  name                              = "my_app_db_migrate"     # Name the service
+  cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
+  task_definition                   = "${aws_ecs_task_definition.my_app_db_migrate.arn}" # Reference the task that the service will spin up
+  launch_type                       = "FARGATE"
+  desired_count                     = 1 # Set up the number of containers to 2
+
+  network_configuration {
+    subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
+    assign_public_ip = false
     security_groups  = ["${aws_security_group.service_security_group.id}"] # Set up the security group
   }
 }

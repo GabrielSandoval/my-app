@@ -8,13 +8,6 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
   ]
 }
 
-/* Security Group for resources that want to access the Database */
-resource "aws_security_group" "db_access_sg" {
-  vpc_id      = "${aws_default_vpc.default_vpc.id}"
-  name        = "rds-db-access-sg"
-  description = "Allow access to RDS"
-}
-
 resource "aws_security_group" "rds_sg" {
   name        = "rds-sg"
   description = "Security Group"
@@ -50,7 +43,7 @@ resource "aws_db_instance" "rds" {
   allocated_storage      = "5"
   engine                 = "mysql"
   engine_version         = "8.0.33"
-  instance_class         = "db.t4g.micro"
+  instance_class         = "db.t4g.medium"
   multi_az               = true
 
   db_name                = "my_app_production"
