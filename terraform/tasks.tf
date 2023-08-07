@@ -46,15 +46,15 @@ resource "aws_ecs_task_definition" "my_app_task" {
           "hostPort": 3000
         }
       ],
-      "memory": 512,
-      "cpu": 256
+      "memory": 2048,
+      "cpu": 1024
     }
   ]
   DEFINITION
   requires_compatibilities = ["FARGATE"] # use Fargate as the launch type
   network_mode             = "awsvpc"    # add the AWS VPN network mode as this is required for Fargate
-  memory                   = 512         # Specify the memory the container requires
-  cpu                      = 256         # Specify the CPU the container requires
+  memory                   = 2048        # Specify the memory the container requires
+  cpu                      = 1024        # Specify the CPU the container requires
   execution_role_arn       = "${aws_iam_role.ecs_task_execution_role.arn}"
 }
 
@@ -105,15 +105,15 @@ resource "aws_ecs_task_definition" "my_app_db_create" {
           "value": "${aws_db_instance.rds.password}"
         }
       ],
-      "memory": 512,
-      "cpu": 256
+      "memory": 2048,
+      "cpu": 1024
     }
   ]
   DEFINITION
   requires_compatibilities = ["FARGATE"] # use Fargate as the launch type
   network_mode             = "awsvpc"    # add the AWS VPN network mode as this is required for Fargate
-  memory                   = 512         # Specify the memory the container requires
-  cpu                      = 256         # Specify the CPU the container requires
+  memory                   = 2048        # Specify the memory the container requires
+  cpu                      = 1024        # Specify the CPU the container requires
   execution_role_arn       = "${aws_iam_role.ecs_task_execution_role.arn}"
 }
 
@@ -164,14 +164,14 @@ resource "aws_ecs_task_definition" "my_app_db_migrate" {
           "value": "${aws_db_instance.rds.password}"
         }
       ],
-      "memory": 512,
-      "cpu": 256
+      "memory": 2048,
+      "cpu": 1024
     }
   ]
   DEFINITION
   requires_compatibilities = ["FARGATE"] # use Fargate as the launch type
   network_mode             = "awsvpc"    # add the AWS VPN network mode as this is required for Fargate
-  memory                   = 512         # Specify the memory the container requires
-  cpu                      = 256         # Specify the CPU the container requires
+  memory                   = 2048        # Specify the memory the container requires
+  cpu                      = 1024        # Specify the CPU the container requires
   execution_role_arn       = "${aws_iam_role.ecs_task_execution_role.arn}"
 }
