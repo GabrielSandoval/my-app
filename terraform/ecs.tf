@@ -35,7 +35,6 @@ resource "aws_security_group" "my_app_service_sg" {
   }
 }
 
-
 resource "aws_ecs_service" "my_app_service" {
   name                              = "my_app_web_service"     # Name the service
   cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
