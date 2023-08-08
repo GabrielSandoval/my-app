@@ -58,29 +58,29 @@ resource "aws_ecs_service" "my_app_service" {
 }
 
 resource "aws_ecs_service" "my_app_db_create" {
-  name                              = "my_app_db_create"     # Name the service
-  cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
-  task_definition                   = "${aws_ecs_task_definition.my_app_db_create.arn}" # Reference the task that the service will spin up
-  launch_type                       = "FARGATE"
-  desired_count                     = 1 # Set up the number of containers to 1
+  name            = "my_app_db_create"     # Name the task
+  cluster         = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
+  task_definition = "${aws_ecs_task_definition.my_app_db_create.arn}" # Reference the task that the service will spin up
+  launch_type     = "FARGATE"
+  count           = 1 # Set up the number of containers to 1
 
   network_configuration {
     subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
-    assign_public_ip = true
+    assign_public_ip = false
     security_groups  = ["${aws_security_group.my_app_service_sg.id}"] # Set up the security group
   }
 }
 
 resource "aws_ecs_service" "my_app_db_migrate" {
-  name                              = "my_app_db_migrate"     # Name the service
-  cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
-  task_definition                   = "${aws_ecs_task_definition.my_app_db_migrate.arn}" # Reference the task that the service will spin up
-  launch_type                       = "FARGATE"
-  desired_count                     = 1 # Set up the number of containers to 1
+  name            = "my_app_db_migrate"     # Name the task
+  cluster         = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
+  task_definition = "${aws_ecs_task_definition.my_app_db_migrate.arn}" # Reference the task that the service will spin up
+  launch_type     = "FARGATE"
+  count           = 1 # Set up the number of containers to 1
 
   network_configuration {
     subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}"]
-    assign_public_ip = true
+    assign_public_ip = false
     security_groups  = ["${aws_security_group.my_app_service_sg.id}"] # Set up the security group
   }
 }

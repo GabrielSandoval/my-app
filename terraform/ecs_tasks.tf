@@ -3,7 +3,7 @@ resource "aws_ecs_task_definition" "my_app_web" {
   container_definitions = templatefile("./task_definitions/web.json",
     {
       name              = "my_app_web"
-      image             = "${aws_ecr_repository.my_app_repo.repository_url}:latest"
+      image             = "${aws_ecr_repository.my_app_repo.repository_url}"
       awslogs_group     = "${aws_cloudwatch_log_group.my_app.name}"
       awslogs_prefix    = "web"
       environment       = "development"
@@ -26,7 +26,7 @@ resource "aws_ecs_task_definition" "my_app_db_create" {
   container_definitions = templatefile("./task_definitions/db_create.json",
     {
       name              = "my_app_db_create"
-      image             = "${aws_ecr_repository.my_app_repo.repository_url}:latest"
+      image             = "${aws_ecr_repository.my_app_repo.repository_url}"
       awslogs_group     = "${aws_cloudwatch_log_group.my_app.name}"
       awslogs_prefix    = "db_create"
       environment       = "development"
@@ -49,7 +49,7 @@ resource "aws_ecs_task_definition" "my_app_db_migrate" {
   container_definitions = templatefile("./task_definitions/db_migrate.json",
     {
       name              = "my_app_db_migrate"
-      image             = "${aws_ecr_repository.my_app_repo.repository_url}:latest"
+      image             = "${aws_ecr_repository.my_app_repo.repository_url}"
       awslogs_group     = "${aws_cloudwatch_log_group.my_app.name}"
       awslogs_prefix    = "db_migrate"
       environment       = "development"
