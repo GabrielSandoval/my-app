@@ -26,3 +26,11 @@ resource "aws_ecs_cluster" "my_app_cluster" {
 output "app_url" {
   value = aws_alb.my_app_load_balancer.dns_name
 }
+
+output "app_public_ip" {
+  value = data.dns_a_record_set.alb_ips
+}
+
+data "dns_a_record_set" "alb_ips" {
+  host = aws_alb.my_app_load_balancer.dns_name
+}

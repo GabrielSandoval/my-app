@@ -5,12 +5,8 @@
 # #  	status code: 400, request id: 5751de6a-b0c2-4458-97bd-57998c4a4b78
 #
 #
-# resource "aws_route53_zone" "gsandoval-dev" {
-#   name = "gsandoval.dev"
-# }
-#
 # resource "aws_route53_record" "gsandoval-dev" {
-#   zone_id = aws_route53_zone.gsandoval-dev.zone_id
+#   zone_id = "Z35SXDOTRQ7X7K"
 #   name    = "gsandoval.dev"
 #   type    = "A"
 #
@@ -18,7 +14,7 @@
 # }
 #
 # resource "aws_route53_record" "www-gsandoval-dev" {
-#   zone_id = aws_route53_zone.gsandoval-dev.zone_id
+#   zone_id = "Z35SXDOTRQ7X7K"
 #   name    = "www.gsandoval.dev"
 #   type    = "A"
 #

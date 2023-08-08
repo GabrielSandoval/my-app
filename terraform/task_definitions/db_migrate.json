@@ -2,8 +2,8 @@
   {
     "name": "${name}",
     "image": "${image}",
-    "essential": false,
-    "command": ["bundle", "exec", "rails", "db:migrate"],
+    "essential": true,
+    "command": ["rails", "db:migrate"],
     "logConfiguration":{
       "logDriver": "awslogs",
       "options": {
@@ -16,10 +16,6 @@
       {
         "name": "RAILS_ENV",
         "value": "${environment}"
-      },
-      {
-        "name": "HOST",
-        "value": "${host}"
       },
       {
         "name": "DATABASE_HOST",
@@ -36,12 +32,6 @@
       {
         "name": "DATABASE_PASSWORD",
         "value": "${database_password}"
-      }
-    ],
-    "portMappings": [
-      {
-        "containerPort": 3000,
-        "hostPort": 3000
       }
     ],
     "memory": 2048,

@@ -17,7 +17,7 @@ resource "aws_alb" "my_app_load_balancer" {
   name               = "my-app-load-balancer"
   load_balancer_type = "application"
 
-  subnets = [ # Referencing the default subnets
+  subnets            = [ # Referencing the default subnets
     "${aws_default_subnet.default_subnet_a.id}",
     "${aws_default_subnet.default_subnet_b.id}",
   ]
@@ -40,23 +40,6 @@ resource "aws_security_group" "load_balancer_security_group" {
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Allow traffic in from all sources
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_security_group" "service_security_group" {
-  ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    # Only allowing traffic in from the load balancer security group
-    security_groups = ["${aws_security_group.load_balancer_security_group.id}"]
   }
 
   egress {
