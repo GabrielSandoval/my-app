@@ -54,9 +54,9 @@ resource "aws_db_instance" "rds" {
   instance_class         = "db.t4g.medium"
   multi_az               = true
 
-  db_name                = "my_app_production"
-  username               = "my_app_production"
-  password               = "my_app_production"
+  db_name                = "my_app_development"
+  username               = "my_app_development"
+  password               = "my_app_development"
 
   db_subnet_group_name   = "${aws_db_subnet_group.rds_subnet_group.id}"
   vpc_security_group_ids = ["${aws_security_group.rds_sg.id}"]
