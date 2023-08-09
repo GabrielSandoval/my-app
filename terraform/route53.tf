@@ -30,7 +30,7 @@ resource "aws_route53_record" "gabriel_dev_validation" {
 
 resource "aws_acm_certificate_validation" "gabriel_dev_validation" {
   certificate_arn         = aws_acm_certificate.gabriel_dev.arn
-  # validation_record_fqdns = [for record in aws_route53_record.gabriel_dev_validation : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.gabriel_dev_validation : record.fqdn]
 }
 
 resource "aws_route53_record" "gsandoval_dev_alb" {
