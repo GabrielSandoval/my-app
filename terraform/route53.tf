@@ -1,9 +1,3 @@
-# Error: creating Route 53 Record: InvalidInput: Invalid request: Expected exactly one of [AliasTarget, all of [TTL, and ResourceRecords], or TrafficPolicyInstanceId], but found none in Change with [Action=CREATE, Name=gsandoval.dev, Type=A, SetIdentifier=null]
-#  	status code: 400, request id: 04f2f21b-1b54-49de-bc9d-f42595112889
-#
-#  Error: creating Route 53 Record: InvalidInput: Invalid request: Expected exactly one of [AliasTarget, all of [TTL, and ResourceRecords], or TrafficPolicyInstanceId], but found none in Change with [Action=CREATE, Name=www.gsandoval.dev, Type=A, SetIdentifier=null]
-#  	status code: 400, request id: 5751de6a-b0c2-4458-97bd-57998c4a4b78
-
 resource "aws_acm_certificate" "gabriel_dev" {
   domain_name       = "gsandoval.dev"
   validation_method = "DNS"
