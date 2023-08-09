@@ -28,6 +28,8 @@ resource "aws_alb" "my_app_load_balancer" {
 
 # Create a security group for the load balancer:
 resource "aws_security_group" "load_balancer_security_group" {
+  vpc_id        = aws_default_vpc.default_vpc.id
+
   ingress {
     from_port   = 80
     to_port     = 80
@@ -64,8 +66,13 @@ resource "aws_lb_listener" "listener" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = "${aws_lb_target_group.target_group.arn}" # target group
+    type             = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }
 
