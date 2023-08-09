@@ -51,7 +51,7 @@ resource "aws_db_instance" "rds" {
   allocated_storage      = "5"
   engine                 = "mysql"
   engine_version         = "8.0.33"
-  instance_class         = "db.t4g.medium"
+  instance_class         = "db.t4g.micro"
   multi_az               = true
 
   db_name                = "my_app_development"
