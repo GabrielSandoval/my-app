@@ -40,7 +40,7 @@ resource "aws_ecs_service" "my_app_service" {
   cluster                           = "${aws_ecs_cluster.my_app_cluster.id}"   # Reference the created Cluster
   task_definition                   = "${aws_ecs_task_definition.my_app_web.arn}" # Reference the task that the service will spin up
   launch_type                       = "FARGATE"
-  desired_count                     = 2 # Set up the number of containers to 2
+  desired_count                     = 1 # Set up the number of containers to 2
   health_check_grace_period_seconds = 300 # 5 minutes
 
   load_balancer {
