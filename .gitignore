@@ -31,3 +31,4 @@
 /config/master.key
 
 terraform/.terraform
+terraform/.terraform.tfstate*
