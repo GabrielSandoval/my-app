@@ -66,12 +66,11 @@ resource "aws_lb_listener" "listener" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
+    type             = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Hello, world!"
+      status_code  = 200
     }
   }
 }
@@ -83,8 +82,13 @@ resource "aws_lb_listener" "listener-https" {
   ssl_policy         = "ELBSecurityPolicy-2016-08"
 
   default_action {
-    type             = "forward"
-    target_group_arn = "${aws_lb_target_group.target_group.arn}" # target group
+    type             = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Hello, world!"
+      status_code  = 200
+    }
   }
+
   certificate_arn    = aws_acm_certificate.gabriel_dev.arn
 }
